@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+
+    <script>
+        var clientMed = <%- JSON.stringify(serverMed) %>;
+        //document.write(Date());
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1><span class="fa fa-search"></span> Search</h1>
+            <form class="form-horizontal" method="POST" action="/search">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Welcome to Medicheck !!</legend>
+                    <!-- Button Drop Down -->
+                    <div class="form-group">
+                        <label for="areaname">Area name</label><br>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control" title="Select your area" data-live-search="true" name="area" id="area" required>
+                                <option value="Ayothiyaptinam" >Ayothiyaptinam</option>
+                                <option value="Ammapet">Ammapet</option>
+                                <option value="A.N. Mangalam">A.N. Mangalam</option>
+                                <option value="Minnampalli">Minnampalli</option>
+                                <option value="Karipatti">Karipatti</option>
+                                <option value="Selliyampalayam">Selliyampalayam</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="medname">Medicine name</label><br>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker" data-live-search="true" name="medname" id="medname" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="/assets/js/forsearch.js" type="text/javascript">
+                    </script>
+                    <!-- Search input-->
+                    <!--<div class="form-group">
+                    <label class="col-md-4 control-label" for="medicine-name">Medicine Name</label>
+                    <div class="col-md-4">
+                        <input id="medicine-name" ng-model="medicine_name" ng-change="change(text)" name="medicine-name" placeholder="eg : anacin" class="form-control input-md" required="" type="search">
+                    </div>
+                    </div> -->
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="submit" name="submit" class="btn btn-warning btn-lg">Search</button>
+                    </div>
+                </fieldset>
+        </div>
+    </div>
+    <div class="well">
+        <p id="p1"> None found </p>
+        </script>
+    </div>
+</body>
+
+</html>

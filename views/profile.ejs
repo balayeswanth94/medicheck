@@ -1,0 +1,121 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Medicheck</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0iqRIcPqhI-yFQi_eNEMpwTK-_vcB57k&callback=initMap" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <style>
+        body {
+            padding-top: 80px;
+            word-wrap: break-word;
+        }
+        
+        #map-canvas {
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+    <script>
+        var clientMed = <%- JSON.stringify(serverMed) %>;
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="page-header text-center">
+            <h1><span class="fa fa-anchor"></span> Profile Page, Welcome to Medicheck !!</h1>
+            <!-- <a href="/search" class="btn btn-default btn-sm">Search</a> &nbsp-->
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="col-sm-6">
+                    <div class="well">
+                        <h3><span class="fa fa-user"></span> Local</h3>
+
+                        <p>
+                            <strong>id</strong>:
+                            <%= user._id %><br>
+                                <strong>email</strong>:
+                                <%= user.local.email %><br>
+                                    <strong>password</strong>:
+                                    <%= user.local.password %><br>
+                                        <strong>Usertype</strong>:
+                                        <%= user.local.usertype %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="container">
+                    <div class="col-sm-6">
+                        <div class="well">
+                            <p>
+                                <form class="form-horizontal" method="POST">
+                                    <!-- Form Name -->
+                                    <!-- Button Drop Down -->
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label for="areaname">Area name</label>
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" title="Select your area" data-live-search="true" name="area" id="area" required>
+                                <option value="Ayothiyaptinam" >Ayothiyaptinam</option>
+                                <option value="Ammapet">Ammapet</option>
+                                <option value="A.N. Mangalam">A.N. Mangalam</option>
+                                <option value="Minnampalli">Minnampalli</option>
+                                <option value="Karipatti">Karipatti</option>
+                                <option value="Selliyampalayam">Selliyampalayam</option>
+                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label for="medname">Medicine name</label>
+                                            <div class="form-group">
+                                                <select class="selectpicker" title="Select required medicine" data-live-search="true" name="medname" id="medname" required>
+                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </p>
+                            <div class="form-group">
+                                <button id="submit" aria-label="Left Align" onclick="sendData()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
+                            </div>
+                            <script src="/assets/js/forsearch.js" type="text/javascript">
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="well">
+                <p id="p1"> None found </p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="map-canvas" style="width: 500px;height: 500px;"></div>
+        </div>
+</body>
+
+</html>

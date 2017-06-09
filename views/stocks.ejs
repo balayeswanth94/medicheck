@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-duallistbox.min.css">
+    <script src="/assets/js/jquery.bootstrap-duallistbox.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2> Stock Maintanence </h2>
+    <form action="/stocks" method="post" name="manageStocksForm" id="manageStocksForm">
+        <select name="stockbox" id="stockbox" multiple="multiple" size="10" class="demo"> </select>
+        <input type="hidden" id="post_data" name="post_data">
+        <input type="submit" value="Update Stocks" onclick='return clicked(this.form)'>
+        <form>
+            <script>
+                //onclick="return confirm('Are you sure?')"
+                var demo = $('select[name="stockbox"]').bootstrapDualListbox({
+                    nonSelectedListLabel: 'Nil stock at your store',
+                    selectedListLabel: 'Available stock at store',
+                    filterTextClear: 'show all',
+                    moveOnSelect: true
+                });
+
+                function clicked(form) {
+                    oFormObject = document.forms['manageStocksForm'];
+                    var predata = {};
+                    var temp = {};
+                    predata = $('[name="stockbox"]').val();
+                    var postdata = [];
+                    var length = predata.length;
+                    for (var j = 0; j < length; j++) {
+                        temp = {
+                            name: predata[j],
+                            hits: 100
+                        };
+                        postdata.push(temp);
+                    }
+                    alert($('[name="stockbox"]').val());
+                    if (confirm('Are you sure?')) {
+                        oFormObject.elements["post_data"].value = JSON.stringify(postdata);
+                        form.submit();
+                    } else return false;
+                }
+                var available_Med = <%- JSON.stringify(availableMed) %> || {};
+                var total_Med = <%- JSON.stringify(totalMed) %>;
+                console.log(available_Med);
+                var length = total_Med.length;
+                for (var j = 0; j < length; j++) {
+                    var newOption = $('<option/>');
+                    newOption.text(total_Med[j].name);
+                    newOption.attr('value', total_Med[j].name);
+                    newOption.attr('selected', false);
+                    $('select[name="stockbox"]').append(newOption);
+                    //console.log(newOption);
+                    demo.bootstrapDualListbox('refresh', true);
+                }
+                length = available_Med.length;
+                console.log(length);
+                for (var j = 0; j < length; j++) {
+
+                    var newOption = $('<option/>');
+                    newOption.text(available_Med[j].name);
+                    newOption.attr('value', available_Med[j].name);
+                    newOption.attr('selected', 'selected');
+                    console.log("available" + newOption);
+                    $('select[name="stockbox"]').append(newOption);
+                    demo.bootstrapDualListbox('refresh', true);
+                }
+            </script>
+
+</body>

@@ -1,0 +1,96 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Medicheck</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1><span class="fa fa-edit"></span> Edit Profile</h1>
+            <!-- LOGIN FORM -->
+            <form action="/skedit" method="post" id="skeditform">
+                <div class="form-group">
+                    <label>Owner Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Please enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Please enter your address" required>
+                </div>
+                <div class="form-group">
+                    <label>Area</label>
+                    <select class="selectpicker form-control" title="Select your area" data-live-search="true" name="area" id="area" required>
+                    <option value="Ayothiyaptinam"  >Ayothiyaptinam</option>
+                    <option value="Ammapet">Ammapet</option>
+                    <option value="A.N. Mangalam">A.N. Mangalam</option>
+                    <option value="Minnampalli">Minnampalli</option>
+                    <option value="Karipatti">Karipatti</option>
+                    <option value="Selliyampalayam">Selliyampalayam</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="text" class="form-control" id="website" name="website" placeholder="Please enter your website address" required>
+                </div>
+                <div class="form-group">
+                    <label>phone1</label>
+                    <input type="text" class="form-control" id="phone1" name="phone1" placeholder="Please enter your phone no." required>
+                </div>
+                <div class="form-group">
+                    <label>Alternate Mob/Landline no.</label>
+                    <input type="text" class="form-control" id="phone2" name="phone2" placeholder="Please enter your alternate phone no.">
+                </div>
+                <button type="submit" class="btn btn-warning">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </form><br>
+            <div class="form-group">
+                <label>Gmap: Lat,Lng</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="----" readonly>[* editable at <a href="/smap"> Edit maps</a>]
+            </div>
+
+            <hr>
+            <p>go back?<a href="/shopkeeper-profile">Profile</a></p>
+
+        </div>
+    </div>
+    <script>
+        var mydetails = <%- JSON.stringify(user.details) %>;
+        oFormObject = document.forms['skeditform'];
+        oFormObject.elements["name"].value = mydetails.name || "";
+        oFormObject.elements["address"].value = mydetails.address || "";
+        //oFormObject.elements["area"].value = mydetails.area || "";
+        //console.log(mydetails.area);
+        //document.getElementById("skeditform").elements.namedItem("area").selected = mydetails.area;
+        oFormObject.elements["website"].value = mydetails.website || "";
+        oFormObject.elements["phone1"].value = mydetails.phone1 || "";
+        oFormObject.elements["phone2"].value = mydetails.phone2 || "";
+        document.getElementById("location").value = mydetails.location.lat + ',' + mydetails.location.lng || "11.671133629785487, 78.23090055090324";
+    </script>
+
+</body>
+
+</html>

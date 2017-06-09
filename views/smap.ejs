@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>Medicheck</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            word-wrap: break-word;
+        }
+    </style>
+    <style>
+        #map-canvas {
+            height: 600px;
+            width: 800px;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0iqRIcPqhI-yFQi_eNEMpwTK-_vcB57k&callback=initMap" type="text/javascript"></script>
+    <script src="/assets/js/gmap.js">
+    </script>
+</head>
+
+<body>
+    <div id="map-canvas"></div>
+    <div id="infoPanel">
+        <b>Marker status:</b>
+        <div id="markerStatus"><i>Click and drag the marker.</i></div>
+        <b>Current position:</b>
+        <div id="info"></div>
+        <b>Closest matching address:</b>
+        <div id="address"></div>
+    </div>
+    <input type="button" value="Save Location" onclick="sendData()">
+    <a href="shopkeeper-profile">go back</a>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+
+<head>
+    <title>MediCheck</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1><span class="fa fa-sign-in"></span> Signup-Shopee</h1>
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+                <% } %>
+                    <!-- LOGIN FORM -->
+                    <form action="/shopkeeper-register" method="post">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password">
+                            <!--</div>
+            <div class="form-group">
+                <select class="selectpicker form-control" data-live-search="true" name="area" id="area" >
+                    <option>Ayothiyaptinam</option>
+                    <option>Ammapet</option>
+                    <option>A.N. Mangalam</option>
+                    <option>Minnampalli</option>
+                    <option>Karipatti</option>
+                    <option>Selliyampalayam</option>
+                </select>
+            </div>-->
+                            <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+                    </form>
+
+                    <hr>
+
+                    <p>Already have an account? <a href="/shopkeeper-login">Login</a></p>
+                    <p>Or go <a href="/">home</a>.</p>
+
+                    </div>
+
+        </div>
+</body>
+
+</html>

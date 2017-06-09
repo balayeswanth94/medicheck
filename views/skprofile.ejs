@@ -1,0 +1,117 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Medicheck</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+
+
+
+    <style>
+        body {
+            padding-top: 80px;
+            word-wrap: break-word;
+        }
+        
+        .pre-scrollable {
+            max-height: 327px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="page-header text-center">
+            <h1><span class="fa fa-shopping-cart"></span>Shopkeeper Profile Page</h1>
+            <a href="/skedit" class="btn btn-default btn-sm">Edit profile</a> &nbsp
+            <a href="/stocks" class="btn btn-default btn-sm">Manage Stocks</a> &nbsp
+            <a href="/smap" class="btn btn-default btn-sm">Change Maps Location</a> &nbsp
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+        </div>
+
+        <div class="row">
+
+            <!-- LOCAL INFORMATION -->
+            <div class="col-sm-6">
+                <div class="well">
+                    <h3><span class="fa fa-user"></span> Profile</h3>
+
+                    <p>
+                        <strong>id</strong>:
+                        <%= user._id %><br>
+                            <strong>Email</strong>:
+                            <%= user.local.email %><br>
+                                <strong>Name</strong>:
+                                <%= user.details.name %><br>
+                                    <strong>Address</strong>:
+                                    <%= user.details.address %><br>
+                                        <strong>Area</strong>:
+                                        <%= user.details.area %><br>
+                                            <strong>Website</strong>:
+                                            <%= user.details.website %><br>
+                                                <strong>Phone1</strong>:
+                                                <%= user.details.phone1 %><br>
+                                                    <strong>Phone2</strong>:
+                                                    <%= user.details.phone2 %><br>
+                                                        <strong>Gmap latlong</strong>:
+                                                        <%= user.details.location %><br>
+                                                            <strong>Hitcount</strong>:
+                                                            <%= user.details.hitcount %><br>
+                                                                <strong>Created_at</strong>:
+                                                                <%= user.details.created_at %><br>
+                                                                    <strong>Updated_at</strong>:
+                                                                    <%= user.details.updated_at %><br>
+                    </p>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well well-sm pre-scrollable">
+                    <h3><span class="fa fa-medkit"></span> Availble Stock at store</h3>
+                    <p id="pstock"> ---Nil--- </p>
+
+                </div>
+                <div class="form-group">
+                    <select class="selectpicker" data-width="auto" title="Check for availability" data-size="5" data-live-search="true" name="medname" id="medname">
+                </select>
+                </div>
+            </div>
+            <script>
+                var clientMed = <%- JSON.stringify(user.stocks) %>;
+                console.log(clientMed);
+                var length = clientMed.length;
+                if (length > 0) $('#pstock').text("");
+                for (var j = 0; j < length; j++) {
+                    $('#pstock').append('<strong>' + (j + 1) + ').</strong>');
+                    $('#pstock').append(clientMed[j].name);
+                    $('#pstock').append('<br>');
+                }
+            </script>
+            <script src="/assets/js/forsearch.js" type="text/javascript">
+            </script>
+        </div>
+
+    </div>
+</body>
+
+</html>
