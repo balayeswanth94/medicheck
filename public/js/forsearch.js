@@ -1,4 +1,3 @@
-var map;
 var length = clientMed.length;
 for (var j = 0; j < length; j++) {
 
@@ -6,6 +5,14 @@ for (var j = 0; j < length; j++) {
     newOption.text(clientMed[j].name);
     newOption.attr('value', clientMed[j].name);
     $('#medname').append(newOption);
+}
+
+length = clientArea.length;
+for (var j = 0; j < length; j++) {
+    var newOption = $('<option/>');
+    newOption.text(clientArea[j].name);
+    newOption.attr('value', clientArea[j].name);
+    $('#area').append(newOption);
 }
 var shopdata = {};
 

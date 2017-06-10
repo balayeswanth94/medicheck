@@ -44,11 +44,16 @@
             <h1><span class="fa fa-shopping-cart"></span>Shopkeeper Profile Page</h1>
             <a href="/skedit" class="btn btn-default btn-sm">Edit profile</a> &nbsp
             <a href="/stocks" class="btn btn-default btn-sm">Manage Stocks</a> &nbsp
-            <a href="/smap" class="btn btn-default btn-sm">Change Maps Location</a> &nbsp
+            <a id="gmap" class="btn btn-default btn-sm">Change Maps Location</a> &nbsp
             <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-
         </div>
-
+        <script>
+            var addr = <%- JSON.stringify(user.details.area) %>;
+            console.log("addr : " + addr);
+            var url = '/smaps?loc=' + encodeURIComponent(addr);
+            console.log(url);
+            document.getElementById("gmap").href = url;
+        </script>
         <div class="row">
 
             <!-- LOCAL INFORMATION -->

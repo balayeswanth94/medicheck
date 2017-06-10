@@ -49,6 +49,7 @@ module.exports = function(passport) {
                 if (user) return done(null, false, req.flash('signupMessage', 'That email is already registerded'));
                 else {
                     var newUser = new User();
+                    console.log(newUser._id);
                     newUser.local.email = email;
                     newUser.local.password = newUser.generateHash(password);
                     newUser.local.usertype = "user";

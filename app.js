@@ -11,8 +11,13 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var morgan = require('morgan');
 
+
 var configDB = require(__dirname + '/config/database.js')
+mongoose.Promise = global.Promise;
 mongoose.connect(configDB.url);
+
+
+
 
 require(__dirname + '/config/passport.js')(passport);
 

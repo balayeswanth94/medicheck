@@ -21,6 +21,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0iqRIcPqhI-yFQi_eNEMpwTK-_vcB57k&callback=initMap" type="text/javascript"></script>
     <script src="/assets/js/gmap.js">
     </script>
+    <script>
+        var defloc = <%- JSON.stringify(locat) %>;
+        console.log(defloc[0].latitude);
+        changeVar(defloc);
+        // updateMarkerPosition(latLng)
+    </script>
 </head>
 
 <body>

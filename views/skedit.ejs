@@ -6,8 +6,9 @@
     <title>Medicheck</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <!-- load fontawesome -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD0iqRIcPqhI-yFQi_eNEMpwTK-_vcB57k&libraries=places&sensor=false"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0iqRIcPqhI-yFQi_eNEMpwTK-_vcB57k&libraries=places&callback=initAutocomplete"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -17,10 +18,71 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="/assets/js/skareamap.js"></script>
     <style>
         body {
             padding-top: 80px;
+        }
+        
+        #map-canvas {
+            height: 400px;
+            width: 600px;
+            margin: 0px;
+            padding: 0px
+        }
+        
+        #infowindow-content .title {
+            font-weight: bold;
+        }
+        
+        #infowindow-content {
+            display: none;
+        }
+        
+        #map #infowindow-content {
+            display: inline;
+        }
+        
+        .pac-card {
+            margin: 10px 10px 0 0;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            font-family: Roboto;
+        }
+        
+        #pac-container {
+            padding-bottom: 12px;
+            margin-right: 12px;
+        }
+        
+        .pac-controls {
+            display: inline-block;
+            padding: 5px 11px;
+        }
+        
+        .pac-controls label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+        
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 400px;
+        }
+        
+        #pac-input:focus {
+            border-color: #4d90fe;
         }
     </style>
 </head>
@@ -43,14 +105,17 @@
                 </div>
                 <div class="form-group">
                     <label>Area</label>
-                    <select class="selectpicker form-control" title="Select your area" data-live-search="true" name="area" id="area" required>
+                    <!--<select class="selectpicker form-control" title="Select your area" data-live-search="true" name="area" id="area" required>
                     <option value="Ayothiyaptinam"  >Ayothiyaptinam</option>
                     <option value="Ammapet">Ammapet</option>
                     <option value="A.N. Mangalam">A.N. Mangalam</option>
                     <option value="Minnampalli">Minnampalli</option>
                     <option value="Karipatti">Karipatti</option>
                     <option value="Selliyampalayam">Selliyampalayam</option>
-                </select>
+                </select>-->
+                    <input id="area" name="area" class="controls" type="text" placeholder="Provide area name" required> *Accurate location can be altered at edit map options
+                    <div id="map-canvas"></div>
+
                 </div>
                 <div class="form-group">
                     <label>Website</label>
@@ -69,28 +134,26 @@
             </form><br>
             <div class="form-group">
                 <label>Gmap: Lat,Lng</label>
-                <input type="text" class="form-control" id="location" name="location" placeholder="----" readonly>[* editable at <a href="/smap"> Edit maps</a>]
+                <input type="text" class="form-control" id="location" name="location" placeholder="----" readonly>* editable at edit maps option
             </div>
 
             <hr>
-            <p>go back?<a href="/shopkeeper-profile">Profile</a></p>
+            <!--<p>go back?<a href="/shopkeeper-profile">Profile</a></p>-->
 
         </div>
     </div>
     <script>
         var mydetails = <%- JSON.stringify(user.details) %>;
+        console.log(mydetails);
         oFormObject = document.forms['skeditform'];
         oFormObject.elements["name"].value = mydetails.name || "";
         oFormObject.elements["address"].value = mydetails.address || "";
-        //oFormObject.elements["area"].value = mydetails.area || "";
-        //console.log(mydetails.area);
-        //document.getElementById("skeditform").elements.namedItem("area").selected = mydetails.area;
+        oFormObject.elements["area"].value = mydetails.area || "";
         oFormObject.elements["website"].value = mydetails.website || "";
         oFormObject.elements["phone1"].value = mydetails.phone1 || "";
         oFormObject.elements["phone2"].value = mydetails.phone2 || "";
         document.getElementById("location").value = mydetails.location.lat + ',' + mydetails.location.lng || "11.671133629785487, 78.23090055090324";
     </script>
-
 </body>
 
 </html>

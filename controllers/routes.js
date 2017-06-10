@@ -5,9 +5,13 @@ var User = require('../app/models/user.js');
 var Shop = require('../app/models/shop.js');
 var mongoose = require('mongoose');
 var Med = require('../app/models/medicine.js');
+var Area = require('../app/models/area.js');
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
+        //var x = new Area();
+        //var y = new Shop();
+        //console.log(x._id, y._id);
         res.render('index');
     });
 
@@ -21,9 +25,14 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/profile', isLoggedIn, function(req, res) {
+        var areadata;
+        Area.find({}, function(err, data) {
+            if (err) console.log(err);
+            else areadata = data;
+        })
         Med.find({}, function(err, data) {
             if (err) console.log(err);
-            res.render('profile', { user: req.user, serverMed: data });
+            res.render('profile', { user: req.user, serverMed: data, serverArea: areadata });
         });
     });
     app.post('/profile', isLoggedIn, function(req, res) {
@@ -80,40 +89,16 @@ module.exports = function(app, passport) {
 }
 
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) return next();
+    if (req.isAuthenticated()) {
+        //console.log(req.session.passport.user.usertype);
+        if (req.session.passport.user.usertype == 'user')
+            return next();
+        else
+            res.render('/', { message: req.flash('Request denied') });
+    }
+
     res.redirect('/');
 }
-
-var medicines = [{
-        id: '1',
-        name: 'anacin'
-    },
-    {
-        id: '2',
-        name: 'metacin'
-    },
-    {
-        id: '3',
-        name: 'Paracetamol'
-    },
-    {
-        id: '4',
-        name: 'DICLOFENAC'
-    },
-    {
-        id: '5',
-        name: 'CHLORZOXAZONE'
-    },
-    {
-        id: '6',
-        name: 'Acetaminophen'
-    },
-    {
-        id: '7',
-        name: 'Diclofenac Sodium'
-    }
-];
-
 
 
 /*    

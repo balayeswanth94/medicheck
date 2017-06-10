@@ -2,6 +2,7 @@
         var mylat = '0';
         var mylng = '0';
 
+
         function geocodePosition(pos) {
             geocoder.geocode({
                 latLng: pos
@@ -30,16 +31,24 @@
         function updateMarkerAddress(str) {
             document.getElementById('address').innerHTML = str;
         }
+        var lati;
+        var longi;
+
+        function changeVar(defloc) {
+            lati = defloc[0].latitude;
+            longi = defloc[0].longitude;
+            console.log(lati, longi);
+        }
 
         function initialize() {
-            var myLatlng = new google.maps.LatLng(11.671133629785487, 78.23090055090324);
+            var myLatlng = new google.maps.LatLng(lati, longi);
             var latLng = myLatlng;
             var myOptions = {
                 zoom: 16,
                 center: myLatlng
             }
+
             var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-            var myLatlng = new google.maps.LatLng(41.38, 2.18);
             var myOptions = { zoom: 13, center: myLatlng }
             var marker = new google.maps.Marker({
                 position: latLng,
